@@ -9,18 +9,18 @@ import java.io.IOException;
 public class Service {
 
     public void addStudent(Student student) throws IOException {
-        var f = new FileWriter("db.txt", true);
-        var b = new BufferedWriter(f);
+        FileWriter f = new FileWriter("db.txt", true);
+        BufferedWriter b = new BufferedWriter(f);
         b.append(student.ToString());
         b.newLine();
         b.close();
     }
 
     public Collection<Student> getStudents() throws IOException {
-        var ret = new ArrayList<Student>();
-        var f = new FileReader("db.txt");
-        var reader = new BufferedReader(f);
-        String line = "";
+        ArrayList<Student> ret = new ArrayList<>();
+        FileReader f = new FileReader("db.txt");
+        BufferedReader reader = new BufferedReader(f);
+        String line;
         while ((line = reader.readLine()) != null) {
             ret.add(Student.Parse(line));
         }
@@ -29,9 +29,9 @@ public class Service {
     }
 
     public Student findStudentByName(String name) throws IOException {
-        var students = this.getStudents();
-        for(Student current : students) {
-            if(current.GetName().equals(name))
+        Collection<Student> students = this.getStudents();
+        for (Student current : students) {
+            if (current.GetName().equals(name))
                 return current;
         }
         return null;
